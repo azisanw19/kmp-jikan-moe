@@ -1,4 +1,4 @@
-package com.canwar.jikanmoe.android.navigationbar
+package com.canwar.jikanmoe.android.features.navigation
 
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
@@ -6,12 +6,16 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import com.canwar.jikanmoe.android.features.navigation.anime.presentation.ANIME_GRAPH_ROUTE
+import com.canwar.jikanmoe.android.features.navigation.manga.presentation.MANGA_GRAPH_ROUTE
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 @Stable
 class NavigationBarState(private val navController: NavController) {
-    private val navigationBarRoutes = listOf<String>(
+    private val navigationBarRoutes = listOf(
+        ANIME_GRAPH_ROUTE,
+        MANGA_GRAPH_ROUTE,
     )
 
     @SuppressLint("RestrictedApi")
