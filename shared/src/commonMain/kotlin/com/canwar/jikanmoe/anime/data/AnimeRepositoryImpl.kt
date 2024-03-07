@@ -2,21 +2,21 @@ package com.canwar.jikanmoe.anime.data
 
 import com.canwar.jikanmoe.anime.domain.repository.AnimeRepository
 import com.canwar.jikanmoe.anime.domain.model.AnimeResultData
+import com.canwar.jikanmoe.common.data.BaseRepository
 import com.canwar.jikanmoe.common.util.DispatcherProvider
 import com.canwar.jikanmoe.common.util.Result
-import kotlinx.coroutines.withContext
 
 internal class AnimeRepositoryImpl(
-    private val dispatcher: DispatcherProvider,
+    dispatcher: DispatcherProvider,
     private val animeService: AnimeService,
-) : AnimeRepository {
-    override suspend fun getAnimeList(): Result<List<AnimeResultData>> {
-        return withContext(dispatcher.io) {
-            try {
-                val response = animeService.getAnimeList()
-                if (response.data.isEmpty()) {
+) : BaseRepository(dispatcher), AnimeRepository {
+    override suspend fun getAnimeList(): Result<List<AnimeResultData>> =
+        getStateOf(
+            response = { animeService.getAnimeList() },
+            success = { response ->
+                if (response.data == null) {
                     Result.Error(
-                        message = "No anime found",
+                        message = "Data is null",
                     )
                 } else {
                     val animeList = response.data.map { it.toAnimeResultData() }
@@ -24,11 +24,11 @@ internal class AnimeRepositoryImpl(
                         data = animeList,
                     )
                 }
-            } catch (e: Exception) {
+            },
+            error = { e ->
                 Result.Error(
-                    message = "Ooops! Something went wrong",
+                    message = e.message ?: "Oops, we could not send your request, try later!",
                 )
-            }
-        }
-    }
+            },
+        )
 }

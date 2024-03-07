@@ -54,4 +54,7 @@ dependencies {
 
     /* Debug */
     debugImplementation(libs.compose.ui.tooling)
+
+    /* Lifecycle */
+    implementation(libs.androidx.lifecycle.runtime)
 }

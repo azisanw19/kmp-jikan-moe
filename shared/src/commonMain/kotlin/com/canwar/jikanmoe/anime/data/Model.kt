@@ -1,31 +1,30 @@
 package com.canwar.jikanmoe.anime.data
 
-import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonNames
 
 @Serializable
-data class AnimeListResponse @OptIn(ExperimentalSerializationApi::class) constructor(
-    @JsonNames("pagination")
-    val pagination: Pagination,
-    @JsonNames("data")
-    val data: List<AnimeResponse>
+data class AnimeListResponse(
+    @SerialName("pagination")
+    val pagination: Pagination?,
+    @SerialName("data")
+    val data: List<AnimeResponse>?
 )
 
 @Serializable
-data class Pagination @OptIn(ExperimentalSerializationApi::class) constructor(
-    @JsonNames("last_visible_page")
-    val lastVisiblePage: Int,
-    @JsonNames("has_next_page")
-    val hasNextPage: Boolean,
-    @JsonNames("current_page")
-    val currentPage: Int
+data class Pagination(
+    @SerialName("last_visible_page")
+    val lastVisiblePage: Int?,
+    @SerialName("has_next_page")
+    val hasNextPage: Boolean?,
+    @SerialName("current_page")
+    val currentPage: Int?
 )
 
 @Serializable
-data class AnimeResponse @OptIn(ExperimentalSerializationApi::class) constructor(
-    @JsonNames("mal_id")
-    val id: Int,
-    @JsonNames("synopsis")
-    val synopsis: String,
+data class AnimeResponse(
+    @SerialName("mal_id")
+    val malId: Int?,
+    @SerialName("synopsis")
+    val synopsis: String?,
 )
