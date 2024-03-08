@@ -2,10 +2,10 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-	let greet = Greeting().greet()
+    private var animeListUseCase: AnimeListUseCase? = nil
 
 	var body: some View {
-		Text(greet)
+		Text("Hello world")
 	}
 }
 
